@@ -39,7 +39,7 @@ int main() {
         // expr[strlen(expr) - 1] = 0;
         
         //中缀转后缀
-        char postExpr[EXPR_LEN];
+        ExprUnit postExpr[EXPR_LEN];
         if (!MidPost(expr, postExpr)) {
             printf("表达式转换失败\n");
             continue;
@@ -50,7 +50,7 @@ int main() {
         
         printf("================================\n");
         printf("原表达式：\t%s\n", expr);
-        printf("后缀表达式：\t%s\n", postExpr);
+        // printf("后缀表达式：\t%s\n", postExpr);
         printf("计算结果：\t%f\n", result);
         printf("================================\n");
         // Finish();
