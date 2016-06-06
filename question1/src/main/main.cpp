@@ -25,8 +25,8 @@ int main() {
         FreeList(h);
         // Finish();
         
-        printf("输入Y继续，否则退出\n");
+        printf("输入N退出，否则继续\n");
         scanf("%c", &flag);
         fflush(stdin);
-    } while(flag == 'Y' || flag == 'y');
+    } while(flag != 'N' && flag != 'n');
 }

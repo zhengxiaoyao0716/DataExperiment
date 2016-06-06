@@ -5,17 +5,6 @@
 #include "conio.h"
 
 
-/**
- * 结束应用.
- */
-void Finish() {
-    printf("任意键退出");
-    fflush(stdin);
-    getch();
-    exit(-1);
-}
-
-
 /* 
  * ================================
  * 栈工具 
@@ -54,6 +43,15 @@ bool push(ExprUnit data) {
     
     return true;
 }
+ExprUnit top() {
+    ExprUnit data;
+    if (stackHead -> next == NULL) {
+        data.value.op = '#';
+        data.isNum = false;
+    }
+    else data = (*(stackHead -> next)).data;
+    return data;
+}
 ExprUnit pop() {
     linkStack* node = stackHead -> next;
     ExprUnit data;
@@ -77,6 +75,7 @@ bool release() {
         free(node);
     }
     free(stackHead);
+    stackHead = NULL;
     return true;
 }
 
@@ -85,8 +84,21 @@ StackUtil NewStackUtil() {
     
     stackUtil.init = init;
     stackUtil.push = push;
+    stackUtil.top = top;
     stackUtil.pop = pop;
     stackUtil.release = release;
     
     return stackUtil;
+}
+
+
+/**
+ * 结束应用.
+ */
+void Finish() {
+    release();
+    printf("任意键退出");
+    fflush(stdin);
+    getch();
+    exit(-1);
 }

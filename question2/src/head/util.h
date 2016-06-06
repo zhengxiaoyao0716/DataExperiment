@@ -24,8 +24,14 @@ typedef struct {
     bool (* push)(ExprUnit data);
     
     /**
+     * 读取栈顶.
+     * @return 栈顶的数据，栈空时返回{'#', false}
+     */
+    ExprUnit (* top)();
+    
+    /**
      * 出栈.
-     * @return 栈顶的数据，栈空时返回NULL
+     * @return 栈顶的数据，栈空时返回{'#', false}
      */
     ExprUnit (* pop)();
     
