@@ -1,5 +1,5 @@
-#ifndef expression
-#define expression
+#ifndef __EXPRESSION_H
+#define __EXPRESSION_H
 
 /**
  * 表达式数据单元，{'#', false} 表示空.

@@ -35,7 +35,8 @@ int main() {
         char expr[EXPR_LEN];
         fgets(expr, EXPR_LEN, source);
         fflush(source);
-        expr[strlen(expr) - 1] = 0;
+        int lastIndex = strlen(expr) - 1;
+        if (expr[lastIndex] == '\n') expr[lastIndex] = 0;
         
         //中缀转后缀
         ExprUnit postExpr[EXPR_LEN];

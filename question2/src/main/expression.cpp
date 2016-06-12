@@ -199,7 +199,7 @@ ExprAnaly MidPost(char* expr, ExprUnit* postExpr) {
     char* cursor = expr;
     postCursor = postExpr;
     while (*cursor != 0) {
-        if (*cursor == '\n' || *cursor == '#') {
+        if (*cursor == '#') {
             //原表达式无效部分截断并释放
             *cursor = 0;
             while (*++cursor != 0) *cursor = NULL;

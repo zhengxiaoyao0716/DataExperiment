@@ -1,5 +1,5 @@
-#ifndef list
-#define list
+#ifndef __LIST_H
+#define __LIST_H
 
 typedef int datatype;
 
