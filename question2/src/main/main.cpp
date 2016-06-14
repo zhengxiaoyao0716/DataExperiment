@@ -17,11 +17,11 @@ int main() {
         char filePath[256];
         fgets(filePath, 256, stdin);
         fflush(stdin);
-        FILE* source = stdin;
+        FILE* stream = stdin;
         if (filePath[0] != '\n') {
             filePath[strlen(filePath) - 1] = 0;
-            source = fopen(filePath, "r");
-            if (source == NULL) {
+            stream = fopen(filePath, "r");
+            if (stream == NULL) {
                 printf("无效的文件路径\n");
                 continue;
             }
@@ -33,8 +33,9 @@ int main() {
         
         //读取表达式
         char expr[EXPR_LEN];
-        fgets(expr, EXPR_LEN, source);
-        fflush(source);
+        fgets(expr, EXPR_LEN, stream);
+        fflush(stream);
+        if (stream != stdin) fclose(stream);
         int lastIndex = strlen(expr) - 1;
         if (expr[lastIndex] == '\n') expr[lastIndex] = 0;
         

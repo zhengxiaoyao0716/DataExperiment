@@ -53,6 +53,8 @@ ExprAnaly parseExpr(char ch) {
             //     return reportError("[error]错误的表达式.");
             if (unit.isNum) {
                 *postCursor++ = unit;
+                unit.isNum = false;
+
                 flagAllow[EXPR_NUM] = false;    //禁止空格两端同为数字
             }
             //keep flagAllow
@@ -61,7 +63,10 @@ ExprAnaly parseExpr(char ch) {
         case '-':
             if (!flagAllow[EXPR_OP])
                 return reportError("[error]运算符左侧应该为数字.");
-            if (unit.isNum) *postCursor++ = unit;
+            if (unit.isNum) {
+                *postCursor++ = unit;
+                unit.isNum = false;
+            }
             unit = stackUtil.top();
             if (unit.value.op != '(' && unit.value.op != '#')
                 *postCursor++ = stackUtil.pop();
@@ -77,7 +82,10 @@ ExprAnaly parseExpr(char ch) {
         case '/':
             if (!flagAllow[EXPR_OP])
                 return reportError("[error]运算符左侧应该为数字.");
-            if (unit.isNum) *postCursor++ = unit;
+            if (unit.isNum) {
+                *postCursor++ = unit;
+                unit.isNum = false;
+            }
             unit = stackUtil.top();
             switch (unit.value.op) {
                 case '*':
@@ -98,8 +106,12 @@ ExprAnaly parseExpr(char ch) {
         case '(':
             // if (!flagAllow[EXPR_LPH])
             //     return reportError("[error]错误的表达式.");
-            if (unit.isNum) *postCursor++ = unit;
-            else if (unit.isNum || unit.value.op == ')') {
+            if (unit.isNum) {
+                *postCursor++ = unit;
+                unit.value.op = ')';
+                unit.isNum = false;
+            }
+            if (unit.value.op == ')') {
                 unit = stackUtil.top();
                 switch (unit.value.op) {
                     case '(':
@@ -129,6 +141,7 @@ ExprAnaly parseExpr(char ch) {
                 return reportError("[error]错误的表达式，右括号不匹配.");
             if (unit.isNum) {
                 *postCursor++ = unit;
+                unit.isNum = false;
             }
             unit = stackUtil.top();
             while (unit.value.op != '(') {
@@ -164,7 +177,7 @@ ExprAnaly parseExpr(char ch) {
                 return reportError("[error]错误的表达式，遇到未知字符");
             }
             if (!flagAllow[EXPR_NUM])
-                return reportError("[error]错误的表达式.");
+                return reportError("[error]错误的表达式，禁止空格两端同为数字.");
             if (!unit.isNum) {
                 unit.value.num = 0.0;
                 unit.isNum = true;

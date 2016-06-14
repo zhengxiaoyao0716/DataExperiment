@@ -8,22 +8,17 @@
 
 #define WORD_DEFAULT_LEN 12
 
-// int compareTo(char* self, char* compareWith) {
-//     if (*self == 0) return *compareWith == 0 ? 0 : -1;
-//     else if (*compareWith == 0) return 1;
-//     else return *self == *compareWith ? compareTo(++self, ++compareWith) : *self - *compareWith;
-// }
 int compareByDict(TreeData newWord, TreeData word) {
-    char* cursorL = newWord.value;
-    char* cursorR = word.value;
-    // return compareTo(cursorL, cursorR);
-    while (true)  {
-        if (*cursorL == 0) return *cursorR == 0 ? 0 : -1;
-        else if (*cursorR == 0) return 1;
-        else if (*cursorL != *cursorR) return *cursorL - *cursorR;
-        cursorL++;
-        cursorR++;
-    }
+    return strcmp(newWord.value, word.value);
+    // char* cursorL = newWord.value;
+    // char* cursorR = word.value;
+    // while (true)  {
+    //     if (*cursorL == 0) return *cursorR == 0 ? 0 : -1;
+    //     else if (*cursorR == 0) return 1;
+    //     else if (*cursorL != *cursorR) return *cursorL - *cursorR;
+    //     cursorL++;
+    //     cursorR++;
+    // }
 }
 bool insertToNode(Tree* node, TreeData newWord, int (* comparator)(TreeData newWord, TreeData word)) {
     Tree* nextNode;
