@@ -7,7 +7,7 @@ void Finish();
 
 
 /**
- * 栈工具类.
+ * 栈.
  */
 typedef struct {
     /**
@@ -40,11 +40,9 @@ typedef struct {
      * @return 是否成功释放
      */
     bool (* release)();
-} StackUtil;
+} Stack;
 
-/**
- * 栈工具构造方法.
- */
-StackUtil NewStackUtil();
+/** 栈单例 */
+extern Stack stack;
 
 #endif

@@ -36,7 +36,6 @@ float str2float(char* str) {
 */
 
 enum charFlag {EXPR_NUM, EXPR_OP, EXPR_PH};
-StackUtil stackUtil = NewStackUtil();
 bool flagAllow[3];
 int phCount;    //括号计数
 ExprUnit unit;
@@ -67,12 +66,12 @@ ExprAnaly parseExpr(char ch) {
                 *postCursor++ = unit;
                 unit.isNum = false;
             }
-            unit = stackUtil.top();
+            unit = stack.top();
             if (unit.value.op != '(' && unit.value.op != '#')
-                *postCursor++ = stackUtil.pop();
+                *postCursor++ = stack.pop();
             unit.value.op = ch;
             unit.isNum = false;
-            stackUtil.push(unit);
+            stack.push(unit);
             
             flagAllow[EXPR_NUM] = true;
             flagAllow[EXPR_OP] = false;
@@ -86,18 +85,18 @@ ExprAnaly parseExpr(char ch) {
                 *postCursor++ = unit;
                 unit.isNum = false;
             }
-            unit = stackUtil.top();
+            unit = stack.top();
             switch (unit.value.op) {
                 case '*':
                 case '/':
-                    *postCursor++ = stackUtil.pop();
+                    *postCursor++ = stack.pop();
                     break;
                 default:
                     break;
             }
             unit.value.op = ch;
             unit.isNum = false;
-            stackUtil.push(unit);
+            stack.push(unit);
             
             flagAllow[EXPR_NUM] = true;
             flagAllow[EXPR_OP] = false;
@@ -112,23 +111,23 @@ ExprAnaly parseExpr(char ch) {
                 unit.isNum = false;
             }
             if (unit.value.op == ')') {
-                unit = stackUtil.top();
+                unit = stack.top();
                 switch (unit.value.op) {
                     case '(':
                     case '*':
                     case '/':
-                        *postCursor++ = stackUtil.pop();
+                        *postCursor++ = stack.pop();
                         break;
                     default:
                         break;
                 }
                 unit.value.op = '*';
                 unit.isNum = false;
-                stackUtil.push(unit);
+                stack.push(unit);
             }
             unit.value.op = ch;
             unit.isNum = false;
-            stackUtil.push(unit);
+            stack.push(unit);
             
             phCount++;
             
@@ -143,10 +142,10 @@ ExprAnaly parseExpr(char ch) {
                 *postCursor++ = unit;
                 unit.isNum = false;
             }
-            unit = stackUtil.top();
+            unit = stack.top();
             while (unit.value.op != '(') {
-                *postCursor++ = stackUtil.pop();
-                unit = stackUtil.top();
+                *postCursor++ = stack.pop();
+                unit = stack.top();
             }
             unit.value.op = ch;
             unit.isNum = false;
@@ -201,7 +200,7 @@ ExprAnaly parseExpr(char ch) {
  */
 ExprAnaly MidPost(char* expr, ExprUnit* postExpr) {
     ExprAnaly analy = {true, "表达式校验通过."};
-    stackUtil.init();
+    stack.init();
     decimal = 1.0;
     phCount = 0;
     addNum = addInt;
@@ -227,12 +226,12 @@ ExprAnaly MidPost(char* expr, ExprUnit* postExpr) {
     }
     parseExpr(' ');
     do {
-        unit = stackUtil.pop();
+        unit = stack.pop();
         if (unit.value.op != '(')
             *postCursor++ = unit;
     } while (unit.value.op != '#');
     
-    stackUtil.release();
+    stack.release();
     return analy;
 }
 
@@ -242,14 +241,14 @@ ExprAnaly MidPost(char* expr, ExprUnit* postExpr) {
  * @return 求得的结果
  */
 float PostCount(ExprUnit* postExpr) {
-    stackUtil.init();
+    stack.init();
     
     ExprUnit* cursor = postExpr;
     while ((*cursor).value.op != '#')  //(*cursor).isNum || 
     {
         if (!(*cursor).isNum) {
-            float num2 = stackUtil.pop().value.num;
-            float num1 = stackUtil.pop().value.num;
+            float num2 = stack.pop().value.num;
+            float num1 = stack.pop().value.num;
             ExprUnit unit = {{0.0}, true};
             switch ((*cursor).value.op) {
                 case '+':
@@ -268,10 +267,10 @@ float PostCount(ExprUnit* postExpr) {
                     printf("发送未知错误\n");
                     Finish();
             }
-            stackUtil.push(unit);
+            stack.push(unit);
         } 
-        else stackUtil.push(*(cursor));
+        else stack.push(*(cursor));
         cursor++;
     }
-    return stackUtil.pop().value.num;
+    return stack.pop().value.num;
 }

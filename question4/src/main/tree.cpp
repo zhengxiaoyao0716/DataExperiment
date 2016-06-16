@@ -102,7 +102,6 @@ bool CreateTree(Tree* tree, char* input) {
  * @param action 对每一节点的动作
  */
 void ListTree(Tree* tree, void (* action)(TreeData data)) {
-    StackUtil stack = NewStackUtil();
     stack.init();
     stack.push(tree);
     while (!stack.isEmpty()) {

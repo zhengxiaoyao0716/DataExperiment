@@ -7,7 +7,7 @@ void Finish();
 
 
 /**
- * 栈工具类.
+ * 栈.
  */
 typedef struct {
     /**
@@ -55,11 +55,9 @@ typedef struct {
      * 获取栈顶元素是否为已遍历.
      */
     bool (*isTopVisited)();
-} StackUtil;
+} Stack;
 
-/**
- * 栈工具构造方法.
- */
-StackUtil NewStackUtil();
+/** 栈单例 */
+extern Stack stack;
 
 #endif

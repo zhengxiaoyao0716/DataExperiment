@@ -4,7 +4,7 @@
 typedef int StackData;
 
 /**
- * 栈工具类.
+ * 栈.
  */
 typedef struct {
     /**
@@ -42,12 +42,10 @@ typedef struct {
      * 获取栈是否为空.
      */
     bool (*isEmpty)();
-} StackUtil;
+} Stack;
 
-/**
- * 栈工具构造方法.
- */
-StackUtil NewStackUtil();
+/** 栈单例 */
+extern Stack stack;
 
 
 void Finish();

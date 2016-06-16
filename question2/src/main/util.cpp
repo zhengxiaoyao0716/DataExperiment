@@ -79,17 +79,9 @@ bool release() {
     return true;
 }
 
-StackUtil NewStackUtil() {
-    StackUtil stackUtil;
-    
-    stackUtil.init = init;
-    stackUtil.push = push;
-    stackUtil.top = top;
-    stackUtil.pop = pop;
-    stackUtil.release = release;
-    
-    return stackUtil;
-}
+Stack stack = {
+    init, push, top, pop, release
+};
 
 
 /**

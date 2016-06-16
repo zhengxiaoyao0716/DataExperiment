@@ -99,21 +99,10 @@ bool isTopVisited() {
     return (*(stackHead -> next)).visited;
 }
 
-StackUtil NewStackUtil() {
-    StackUtil stackUtil;
-    
-    stackUtil.init = init;
-    stackUtil.push = push;
-    stackUtil.top = top;
-    stackUtil.pop = pop;
-    stackUtil.release = release;
-
-    stackUtil.isEmpty = isEmpty;
-    stackUtil.markTopVisited = markTopVisited;
-    stackUtil.isTopVisited = isTopVisited;
-    
-    return stackUtil;
-}
+Stack stack = {
+    init, push, top, pop, release,
+    isEmpty, markTopVisited, isTopVisited
+};
 
 
 /**

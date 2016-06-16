@@ -74,18 +74,10 @@ bool release() {
 /** 判空 */
 bool isEmpty() {return stackHead -> next == NULL;}
 
-StackUtil NewStackUtil() {
-    StackUtil stackUtil;
-    
-    stackUtil.init = init;
-    stackUtil.push = push;
-    stackUtil.top = top;
-    stackUtil.pop = pop;
-    stackUtil.release = release;
-    stackUtil.isEmpty = isEmpty;
-    
-    return stackUtil;
-}
+Stack stack = {
+    init, push, top, pop,
+    release, isEmpty
+};
 
 /**
  * 结束应用.

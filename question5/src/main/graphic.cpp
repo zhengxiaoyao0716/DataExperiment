@@ -73,7 +73,6 @@ void output(int j, vtype data) {
  * @see 教材P203页
  */
 bool Topsort(Vexnode* G, int n) {
-    StackUtil stack = NewStackUtil();
     stack.init();
     int i, j, k, count, id[maxn];
     arcnode *p;
