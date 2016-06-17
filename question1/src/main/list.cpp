@@ -74,10 +74,10 @@ void Adjmax(List* h, int k, int* result) {
             if (sum > maxSum) {
                 maxSum = sum;
                 data = kLeft -> value;
+                no = num - k;
             }
             sum += iterator -> value;
             sum -= kLeft -> value;
-            no++;
             kLeft = kLeft -> next;
         }
         else sum += iterator -> value;
@@ -87,6 +87,7 @@ void Adjmax(List* h, int k, int* result) {
     if (sum > maxSum) {
         maxSum = sum;
         data = kLeft -> value;
+        no = num - k;
     }
     
     result[0] = no;
