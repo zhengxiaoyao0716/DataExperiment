@@ -44,7 +44,7 @@ int main() {
                 break;
             case '5': 
             {
-                printf("请输入备份所在路径(e.g: backup.csv )");
+                printf("请输入备份档案名(e.g: backup )");
                 printf("若要初始化请直接回车：\n");
                 FILE* stream;
                 char *filePath = ChooseFile(&stream, false);
@@ -57,16 +57,15 @@ int main() {
                 else if (stream == NULL) printf("无效的路径（或文件不可读）\n");
                 else {
                     printf("正在从%s 载入\n", filePath);
-                    if (LoadResult(stream)) printf("从%s 载入完成.\n", filePath);
+                    if (LoadResult(stream, filePath)) printf("从%s 载入完成.\n", filePath);
                     else printf("从%s 载入失败.\n", filePath);
                     free(filePath);
-                    fclose(stream);
                 }
                 break;
             }
             case '0':
             {
-                printf("请输入保存备份路径(e.g: backup.csv )");
+                printf("请输入保存备份档案名(e.g: backup )");
                 printf("若放弃保存请直接回车：\n");
                 FILE* stream;
                 char *filePath = ChooseFile(&stream, true);
@@ -80,15 +79,13 @@ int main() {
                 }
                 else {
                     printf("正在保存到%s\n", filePath);
-                    if (!SaveResult(stream)) {
+                    if (!SaveResult(stream, filePath)) {
                         printf("保存到%s 失败\n", filePath);
-                        fclose(stream);
                         free(filePath);
                         break;
                     }
                     else {
                         printf("保存到%s 成功\n", filePath);
-                        fclose(stream);
                         printf("是否结束应用？\n");
                         free(filePath);
                     }

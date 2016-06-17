@@ -301,7 +301,35 @@ char* ChooseFile(FILE** streamAddr, bool writeMode) {
 }
 
 /** 载入统计 */
-bool LoadResult(FILE* stream) {
+bool LoadResult(FILE* stream, char* filePath) {
+    int index = 0, length = 8;
+    char* strBuilder = (char*)malloc(length * sizeof(char));
+    char ch;
+    while((ch = fgetc(stream)) != EOF) {
+        *(strBuilder + index) = ch;
+        if (++index >= length) {
+            length <<= 1;
+            char* newStr = (char*)realloc(strBuilder, length * sizeof(char));
+            if (newStr == NULL) Finish("加载备份时分配字符串内存失败，可能内存不足\n");
+            strBuilder = newStr;
+        }
+    }
+    *(strBuilder + index) = 0;
+    int filesLen = strlen(report.files);
+    char* newFilesStr = (char*)realloc(report.files, (filesLen + index + 1) * sizeof(char));
+    if (newFilesStr == NULL) Finish("加载备份时分配字符串内存失败，可能内存不足\n");
+    report.files = newFilesStr;
+    strcat(report.files, strBuilder);
+    free(strBuilder);
+    fclose(stream);
+
+    length = strlen(filePath);
+    char* csvFilePath = (char*)malloc((length + 4) * sizeof(char));
+    strcpy(csvFilePath, filePath);
+    strcat(csvFilePath, ".csv");
+    stream = fopen(csvFilePath, "r");
+    free(csvFilePath);
+
     char* column1, * column2;
     LoadTitleFromFile(stream, &column1, &column2);
     free(column1);
@@ -316,6 +344,8 @@ bool LoadResult(FILE* stream) {
         // if (hashMap.throwKey != NULL) free(hashMap.throwKey);
     }
     hashMap.table.keyInterface.hashCode = countWordHashCode;
+
+    fclose(stream);
     return true;
 }
 
@@ -324,7 +354,17 @@ void writeLineToCsvAction(void* key, void* value) {
     WriteLineToFile(writeLineToCsvActionStream, (char*)key, *((int*)value));
 }
 /** 保存结果 */
-bool SaveResult(FILE* stream) {
+bool SaveResult(FILE* stream, char* filePath) {
+    fprintf(stream, "%s", report.files);
+    fclose(stream);
+
+    int length = strlen(filePath);
+    char* csvFilePath = (char*)malloc((length + 4) * sizeof(char));
+    strcpy(csvFilePath, filePath);
+    strcat(csvFilePath, ".csv");
+    stream = fopen(csvFilePath, "w");
+    free(csvFilePath);
+
     char column1[] = "单词";
     char column2[] = "次数";
     WriteTitleToFile(stream, column1, column2);
@@ -332,5 +372,6 @@ bool SaveResult(FILE* stream) {
     writeLineToCsvActionStream = stream;
     hashMap.list(writeLineToCsvAction);
 
+    fclose(stream);
     return true;
 }

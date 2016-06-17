@@ -34,8 +34,8 @@ void SearchWordCount();
  */
 char* ChooseFile(FILE** streamAddr, bool writeMode);
 /** 载入统计 */
-bool LoadResult(FILE* stream);
+bool LoadResult(FILE* stream, char* filePath);
 /** 保存结果 */
-bool SaveResult(FILE* stream);
+bool SaveResult(FILE* stream, char* filePath);
 
 #endif
