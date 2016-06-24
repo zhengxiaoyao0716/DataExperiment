@@ -66,15 +66,15 @@ bool CreateList(List* h) {
 void Adjmax(List* h, int k, int* result) {
     List* iterator = h -> next;
     List* kLeft  = h -> next;
-    datatype num = 0, sum = 0, maxSum = 0;
-    int no = 0;
+    int index = 0, no = 0;
+    datatype sum = 0, maxSum = 0;
     datatype data = 0;
     while(iterator != NULL) {
-        if (num++ >= k) {
+        if (index++ >= k) {
             if (sum > maxSum) {
                 maxSum = sum;
                 data = kLeft -> value;
-                no = num - k;
+                no = index - k;
             }
             sum += iterator -> value;
             sum -= kLeft -> value;
@@ -87,7 +87,7 @@ void Adjmax(List* h, int k, int* result) {
     if (sum > maxSum) {
         maxSum = sum;
         data = kLeft -> value;
-        no = num - k;
+        no = index + 1 - k;
     }
     
     result[0] = no;

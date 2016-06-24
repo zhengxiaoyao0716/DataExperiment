@@ -31,7 +31,7 @@ int main() {
         ListTree(tree, printTreeAction);
         // Finish();
         
-        printf("输入N退出，否则继续\n");
+        printf("\n输入N退出，否则继续\n");
         scanf("%c", &flag);
         fflush(stdin);
     } while(flag != 'N' && flag != 'n');

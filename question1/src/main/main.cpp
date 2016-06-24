@@ -10,6 +10,8 @@ int main() {
     do {
         List* h;
         h = (List*)malloc(sizeof(List));
+        (*h).value = 0;
+        (*h).next = NULL;
         
         CreateList(h);
         

@@ -1,14 +1,15 @@
 已统计的文件列表：
-<D:\MyProject\VisualStudio\experiment\question6\Les Miserables Vol_1（悲惨世界上卷）.txt>
-<D:\MyProject\VisualStudio\experiment\question6\Les Miserables Vol_2（悲惨世界下卷）.txt>
+<Les Miserables Vol_1（悲惨世界上卷）.txt>
+<Les Miserables Vol_1（悲惨世界上卷）.txt>
 
-单词：had,  出现次数6520.
-单词：he,  出现次数7264.
-单词：that,  出现次数7796.
-单词：was,  出现次数9173.
-单词：in,  出现次数10847.
-单词：to,  出现次数14270.
-单词：a,  出现次数14281.
-单词：and,  出现次数14987.
-单词：of,  出现次数20854.
-单词：the,  出现次数38901.
+单词：had,  出现次数5898.
+单词：is,  出现次数6030.
+单词：that,  出现次数6822.
+单词：he,  出现次数6922.
+单词：was,  出现次数9116.
+单词：in,  出现次数10134.
+单词：to,  出现次数13274.
+单词：a,  出现次数13750.
+单词：and,  出现次数13978.
+单词：of,  出现次数19834.
+单词：the,  出现次数36356.

@@ -35,7 +35,7 @@ int main() {
                 case '@':
                     printf("依次出队：\n");
                     EachInQueue(queue, print_queue_unit);
-                    printf("出队完成.\n");
+                    printf("\n出队完成.\n");
                     break;
                 default:
                     if (Enqueue(queue, ch)) printf("入队：%c\n", ch);
